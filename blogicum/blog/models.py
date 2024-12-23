@@ -78,7 +78,6 @@ class Post(BaseModel):
     )
 
     class Meta:
-        ordering = ('created_at',)
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
 
