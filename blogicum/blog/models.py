@@ -3,6 +3,13 @@ from django.contrib.auth import get_user_model
 
 
 User = get_user_model()
+help_text_dict = {
+    'is_published': 'Снимите галочку, чтобы скрыть публикацию.',
+    'slug': 'Идентификатор страницы для URL; разрешены символы' +
+    ' латиницы, цифры, дефис и подчёркивание.',
+    'pub_date': 'Если установить дату и время в будущем — можно делать' +
+    ' отложенные публикации.'
+}
 
 
 class BaseModel(models.Model):
@@ -13,7 +20,7 @@ class BaseModel(models.Model):
     is_published = models.BooleanField(
         verbose_name='Опубликовано',
         default=True,
-        help_text='Снимите галочку, чтобы скрыть публикацию.',
+        help_text=help_text_dict['is_published'],
     )
 
     class Meta:
@@ -40,8 +47,7 @@ class Category(BaseModel):
     slug = models.SlugField(
         'Идентификатор',
         unique=True,
-        help_text='''Идентификатор страницы для URL; разрешены символы \
-            латиницы, цифры, дефис и подчёркивание.''',
+        help_text=help_text_dict['slug'],
     )
 
     class Meta:
@@ -57,8 +63,7 @@ class Post(BaseModel):
     text = models.TextField('Текст')
     pub_date = models.DateTimeField(
         'Дата и время публикации',
-        help_text='Если установить дату и время в будущем — можно делать \
-            отложенные публикации.'
+        help_text=help_text_dict['pub_date']
     )
     author = models.ForeignKey(
         User,
